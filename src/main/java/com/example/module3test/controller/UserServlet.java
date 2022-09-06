@@ -114,7 +114,7 @@ public class UserServlet extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
-        String Classroom = request.getParameter("Classroom");
+        String Classroom = request.getParameter("classroom");
         User book = new User(id, name,birthDay,address,phone,email,Classroom);
         userDAO.updateUser(book);
         RequestDispatcher dispatcher = request.getRequestDispatcher("users/edit.jsp");

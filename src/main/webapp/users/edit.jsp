@@ -56,7 +56,7 @@
             <tr>
                 <th>Students birthDay:</th>
                 <td>
-                    <input type="text" name="email" size="45"
+                    <input type="text" name="birthDay" size="45"
                            value="<c:out value='${user.birthDay}' />"
                     />
                 </td>
@@ -64,7 +64,7 @@
             <tr>
                 <th>Students Address:</th>
                 <td>
-                    <input type="text" name="country" size="15"
+                    <input type="text" name="address" size="15"
                            value="<c:out value='${user.address}' />"
                     />
                 </td>
@@ -72,7 +72,7 @@
             <tr>
                 <th>Students Phone:</th>
                 <td>
-                    <input type="text" name="email" size="45"
+                    <input type="text" name="phone" size="45"
                            value="<c:out value='${user.phone}' />"
                     />
                 </td>
@@ -88,7 +88,7 @@
             <tr>
                 <th>Students Classroom:</th>
                 <td>
-                    <input type="text" name="email" size="45"
+                    <input type="text" name="classroom" size="45"
                            value="<c:out value='${user.classroom}' />"
                     />
                 </td>

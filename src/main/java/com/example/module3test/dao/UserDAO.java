@@ -11,7 +11,7 @@ public class UserDAO implements IUserDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "dung25081995";
     private static final String INSERT_USERS_SQL= "INSERT INTO Students" + "  (name, birthDay, address, phone, email,Classroom) VALUES " +
-            " (?, ?, ?, ?, ?);";
+            " (?, ?, ?, ?, ?,?);";
     private static final String SELECT_USER_BY_ID= "select id,birthDay, address, phone, email,Classroom from Students where id =?";
     private static final String SELECT_ALL_USERS= "select * from Students";
     private static final String DELETE_USERS_SQL= "delete from Students where id = ?;";
@@ -40,7 +40,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setString(3,user.getAddress());
             preparedStatement.setString(4,user.getPhone());
             preparedStatement.setString(5,user.getEmail());
-            preparedStatement.setString(5,user.getClassroom());
+            preparedStatement.setString(6,user.getClassroom());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

@@ -12,7 +12,7 @@
   </h2>
 </center>
 <div align="center">
-  <form method="post">
+  <form action="/users?action=create" method="post">
     <table border="1" cellpadding="5">
       <caption>
         <h2>Add New Students</h2>

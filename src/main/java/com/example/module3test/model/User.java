@@ -9,11 +9,17 @@ public class User {
     protected String email;
     protected String Classroom;
 
-    public User(String name, String birthDay, String address, String phone, String email, String classroom) {
+    public User(String name, String birthDay, String address, String phone, String email, String Classroom) {
+        this.name=name;
+        this.birthDay = birthDay;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.Classroom=Classroom;
     }
 
     public User(int id, String name,String birthDay, String address, String phone, String email,String Classroom) {
-        super();
+//        super();
         this.id = id;
         this.name=name;
         this.birthDay = birthDay;
