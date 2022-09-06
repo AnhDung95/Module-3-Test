@@ -16,7 +16,7 @@ public class UserDAO implements IUserDAO {
     private static final String SELECT_ALL_USERS= "select * from Students";
     private static final String DELETE_USERS_SQL= "delete from Students where id = ?;";
     private static final String UPDATE_USERS_SQL= "update Students set name = ?,birthDay=?,address= ?, phone =?,email=?,Classroom=? where id = ?;";
-
+    private static final String SELECT_STUDENT_BY_ID= "select * from Students where name like ?;";
     public UserDAO() {
     }
     protected Connection getConnection() {
@@ -44,7 +44,7 @@ public class UserDAO implements IUserDAO {
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            printSQLException(e);
+           e.printStackTrace();
         }
     }
     public User selectUser(int id) {
@@ -64,7 +64,7 @@ public class UserDAO implements IUserDAO {
                 user = new User(id, name, birthDay,address,phone, email,Classroom);
             }
         } catch (SQLException e) {
-            printSQLException(e);
+            e.printStackTrace();
         }
         return user;
     }
@@ -86,7 +86,7 @@ public class UserDAO implements IUserDAO {
                 users.add(new User(id, name,birthDay,address,phone, email,Classroom));
             }
         } catch (SQLException e) {
-            printSQLException(e);
+            e.printStackTrace();
         }
         return users;
     }
@@ -102,7 +102,8 @@ public class UserDAO implements IUserDAO {
 
     public boolean updateUser(User user) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getBirthDay());
             statement.setString(3, user.getAddress());
@@ -114,20 +115,42 @@ public class UserDAO implements IUserDAO {
         }
         return rowUpdated;
     }
-    private void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
+    public List<User> selectStudent(String users) {
+        List<User> user = new ArrayList<>();
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_STUDENT_BY_ID);) {
+            preparedStatement.setString(1, "%"+users+"%");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String birthDay = rs.getString("birthDay");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String classroom = rs.getString("classroom");
+                user.add(new User(id, name, birthDay, address, phone, email, classroom));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+        return user;
     }
+//    private void printSQLException(SQLException ex) {
+//        for (Throwable e : ex) {
+//            if (e instanceof SQLException) {
+//                e.printStackTrace(System.err);
+//                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+//                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+//                System.err.println("Message: " + e.getMessage());
+//                Throwable t = ex.getCause();
+//                while (t != null) {
+//                    System.out.println("Cause: " + t);
+//                    t = t.getCause();
+//                }
+//            }
+//        }
+//    }
 }
 

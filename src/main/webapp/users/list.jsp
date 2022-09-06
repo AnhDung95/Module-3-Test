@@ -241,7 +241,11 @@
                     </div>
                     <div class="col-sm-6">
                         <a href="/users?action=create" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Students</span></a>
-                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Students</span></a>
+<%--                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Students</span></a>--%>
+                        <form action="/users?action=find" method="post">
+                            <input type="text" name="search" id="search" placeholder="student">
+                            <input type="submit" value="Search">
+                        </form>
                     </div>
                 </div>
             </div>
